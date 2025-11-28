@@ -22,3 +22,27 @@ viewpulse-backend/uploads/videos/
 .idea/
 .DS_Store
 Thumbs.db
+# IDE / Editor
+.metadata/
+.idea/
+.vscode/
+*.iml
+
+# Java / Maven
+viewpulse-backend/target/
+
+# Python
+viewpulse-ai/__pycache__/
+viewpulse-ai/.venv/
+
+# runtime/uploads
+viewpulse-backend/uploads/
+viewpulse-backend/uploads/videos/
+
+# docker / env / logs
+*.env
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
