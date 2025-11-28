@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ViewPulse - Admin Login</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Page-specific centering for login */
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h1>🎬 ViewPulse</h1>
+                <p>Admin Portal</p>
+            </div>
+            
+            <form id="adminLoginForm">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-block">Login</button>
+            </form>
+            
+            <div id="loginMessage" class="message"></div>
+            
+            <div class="login-footer">
+                <p class="text-muted">Test Accounts:</p>
+                <p class="text-small">Super Admin: admin / admin123</p>
+                <p class="text-small">Owner: [Your Created Owner] / [Password]</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/admin-login.js"></script>
+</body>
+</html>

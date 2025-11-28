@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ad Schedule - ViewPulse</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>🎬 ViewPulse</h2>
+                <p class="role-badge" id="adminRoleBadge">Loading...</p>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item" id="nav-dashboard">
+                    <span class="icon">📊</span> Dashboard
+                </a>
+                <a href="feedback.html" class="nav-item" id="nav-feedback">
+                    <span class="icon">💬</span> Feedback
+                </a>
+                <a href="videos.html" class="nav-item" id="nav-videos">
+                    <span class="icon">🎬</span> Videos
+                </a>
+                <a href="devices.html" class="nav-item" id="nav-devices">
+                    <span class="icon">📱</span> Devices
+                </a>
+                <a href="#" onclick="logout()" class="nav-item logout">
+                    <span class="icon">🚪</span> Logout
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <small>Logged in as:</small>
+                    <p class="username" id="adminUsername">...</p>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="page-header">
+                <div>
+                    <div class="breadcrumb" id="breadcrumb">Loading...</div>
+                    <h1>Ad Schedule Management</h1>
+                </div>
+                <button class="btn btn-primary" onclick="showCreateModal()">
+                    ➕ Add Schedule
+                </button>
+            </header>
+
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Video</th>
+                            <th>Day of Week</th>
+                            <th>Start Time</th>
+                            <th>End Time</th>
+                            <th>Priority</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="scheduleTableBody">
+                        <tr><td colspan="7" class="loading">Loading schedules...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <div id="createModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create Ad Schedule</h2>
+                <span class="close" onclick="closeCreateModal()">&times;</span>
+            </div>
+            <form id="createScheduleForm" onsubmit="createSchedule(event)">
+                <div class="form-group">
+                    <label for="videoId">Video</label>
+                    <select id="videoId" name="videoId" required>
+                        <option value="">Select Video</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="dayOfWeek">Day of Week</label>
+                    <select id="dayOfWeek" name="dayOfWeek" required>
+                        <option value="all">All Days</option>
+                        <option value="monday">Monday</option>
+                        <option value="tuesday">Tuesday</option>
+                        <option value="wednesday">Wednesday</option>
+                        <option value="thursday">Thursday</option>
+                        <option value="friday">Friday</option>
+                        <option value="saturday">Saturday</option>
+                        <option value="sunday">Sunday</option>
+                    </select>
+                </div>
+                <div class="form-row" style="display: flex; gap: 15px;">
+                    <div class="form-group" style="flex: 1;">
+                        <label for="startTime">Start Time</label>
+                        <input type="time" id="startTime" name="startTime" required>
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label for="endTime">End Time</label>
+                        <input type="time" id="endTime" name="endTime" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="priority">Priority (1-10)</label>
+                    <input type="number" id="priority" name="priority" min="1" max="10" value="5" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeCreateModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    
+    <script src="js/sidebar-switcher.js"></script>
+
+    <script>
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const selectedDevice = JSON.parse(localStorage.getItem('selectedDevice'));
+        const adminUsername = localStorage.getItem('adminUsername');
+        const adminRole = localStorage.getItem('adminRole');
+        
+        // Authentication Check
+        if (!selectedDevice) {
+            alert("No device selected. Redirecting...");
+            window.location.href = 'devices.html';
+        }
+        
+        // UI Setup
+        if(adminUsername) document.getElementById('adminUsername').textContent = adminUsername;
+        if(adminRole) {
+            const badge = document.getElementById('adminRoleBadge');
+            if(badge) {
+                badge.textContent = adminRole.toUpperCase().replace('_', ' ');
+                badge.className = 'role-badge ' + adminRole;
+            }
+        }
+
+        // Breadcrumb logic
+        document.getElementById('breadcrumb').textContent = `Managing Device: ${selectedDevice.device_code}`;
+
+        // Load Data
+        loadSchedules();
+
+        async function loadSchedules() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/ad-schedule/device/${selectedDevice.device_id}`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    displaySchedules(data.schedules);
+                }
+            } catch (error) {
+                console.error('Error loading schedules:', error);
+                document.getElementById('scheduleTableBody').innerHTML = '<tr><td colspan="7" class="error">Error connecting to backend</td></tr>';
+            }
+        }
+
+        function displaySchedules(schedules) {
+            const tbody = document.getElementById('scheduleTableBody');
+            
+            if (!schedules || schedules.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No schedules found. Add one to get started.</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = schedules.map(schedule => `
+                <tr>
+                    <td>${schedule.video_title}</td>
+                    <td><span class="badge">${schedule.day_of_week}</span></td>
+                    <td>${schedule.start_time}</td>
+                    <td>${schedule.end_time}</td>
+                    <td><span class="badge" style="background:#e5e7eb">P${schedule.priority}</span></td>
+                    <td>
+                        <span class="badge ${schedule.is_active ? 'badge-success' : 'badge-inactive'}">
+                            ${schedule.is_active ? 'Active' : 'Inactive'}
+                        </span>
+                    </td>
+                    <td>
+                        <button class="btn-sm btn-secondary" onclick="toggleSchedule(${schedule.schedule_id}, ${!schedule.is_active})">
+                            ${schedule.is_active ? '⏸️' : '▶️'}
+                        </button>
+                        <button class="btn-sm btn-danger" style="margin-left:5px; background:#fee2e2; color:#991b1b; border:none;" onclick="deleteSchedule(${schedule.schedule_id})">
+                            🗑️
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // --- Video Loading (Location Aware) ---
+        async function loadVideos() {
+            const locationId = selectedDevice.location_id;
+            const select = document.getElementById('videoId');
+            
+            if (!locationId) {
+                select.innerHTML = '<option value="">Error: Location Unknown</option>';
+                return;
+            }
+
+            try {
+                // Use the admin endpoint to get all videos for this location
+                const response = await fetch(`${API_BASE_URL}/video/admin/location/${locationId}`);
+                const data = await response.json();
+                
+                if (data.success && data.videos) {
+                    if (data.videos.length === 0) {
+                        select.innerHTML = '<option value="">No videos found for this location</option>';
+                    } else {
+                        select.innerHTML = '<option value="">Select Video</option>' +
+                            data.videos.map(video => 
+                                // Ensure we use videoId (CamelCase) as per updated Backend
+                                `<option value="${video.videoId}">${video.videoTitle} (${video.duration}s)</option>`
+                            ).join('');
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading videos:', error);
+                select.innerHTML = '<option value="">Error loading videos</option>';
+            }
+        }
+
+        // --- Modal & Actions ---
+        function showCreateModal() {
+            loadVideos();
+            document.getElementById('createModal').style.display = 'flex';
+        }
+
+        function closeCreateModal() {
+            document.getElementById('createModal').style.display = 'none';
+            document.getElementById('createScheduleForm').reset();
+        }
+
+        async function createSchedule(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const videoIdString = formData.get('videoId');
+            
+            if (!videoIdString || videoIdString === "") {
+                alert("Please select a video.");
+                return;
+            }
+
+            const data = {
+                videoId: parseInt(videoIdString),
+                deviceId: selectedDevice.device_id,
+                dayOfWeek: formData.get('dayOfWeek'),
+                startTime: formData.get('startTime'),
+                endTime: formData.get('endTime'),
+                priority: parseInt(formData.get('priority'))
+            };
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/ad-schedule/create`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    alert('Schedule created successfully!');
+                    closeCreateModal();
+                    loadSchedules();
+                } else {
+                    alert('Error: ' + result.message);
+                }
+            } catch (error) {
+                alert('Error creating schedule');
+                console.error(error);
+            }
+        }
+
+        async function toggleSchedule(scheduleId, newStatus) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/ad-schedule/${scheduleId}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ is_active: newStatus })
+                });
+                
+                const result = await response.json();
+                if (result.success) loadSchedules();
+            } catch (error) {
+                console.error('Error toggling schedule:', error);
+            }
+        }
+
+        async function deleteSchedule(scheduleId) {
+            if (!confirm('Delete this schedule?')) return;
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/ad-schedule/${scheduleId}`, {
+                    method: 'DELETE'
+                });
+                
+                const result = await response.json();
+                if (result.success) {
+                    loadSchedules();
+                } else {
+                    alert("Failed to delete.");
+                }
+            } catch (error) {
+                console.error('Error deleting schedule:', error);
+            }
+        }
+
+        function logout() {
+            localStorage.clear();
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

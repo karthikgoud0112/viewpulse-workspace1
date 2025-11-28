@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Videos Management - ViewPulse</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>🎬 ViewPulse</h2>
+                <p class="role-badge" id="adminRoleBadge">Loading...</p>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="super-admin-dashboard.html" class="nav-item" id="nav-dashboard">
+                    <span class="icon">📊</span> Dashboard
+                </a>
+                <a href="feedback.html" class="nav-item" id="nav-feedback">
+                    <span class="icon">💬</span> Feedback
+                </a>
+                <a href="videos.html" class="nav-item active" id="nav-videos">
+                    <span class="icon">🎬</span> Videos
+                </a>
+                <a href="devices.html" class="nav-item" id="nav-devices">
+                    <span class="icon">📱</span> Devices
+                </a>
+                <a href="#" onclick="logout()" class="nav-item logout">
+                    <span class="icon">🚪</span> Logout
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <small>Logged in as:</small>
+                    <p class="username" id="adminUsername">...</p>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="page-header">
+                <h1>Manage Videos</h1>
+                <button class="btn btn-primary" onclick="showUploadModal()">
+                    ➕ Upload Video
+                </button>
+            </header>
+            <div class="section-header">
+                <h2>Video Library</h2>
+                <p class="section-description">All videos available for this context</p>
+            </div>
+            <div class="cards-grid" id="videosGrid">
+                <div class="loading">Loading videos...</div>
+            </div>
+        </main>
+    </div>
+
+    <div id="uploadModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Upload New Video</h2>
+                <span class="close" onclick="closeUploadModal()">&times;</span>
+            </div>
+            <form id="uploadVideoForm" enctype="multipart/form-data" onsubmit="uploadVideo(event)">
+                
+                <div class="form-group">
+                    <label for="locationId">Assign to Location</label>
+                    <select id="locationId" name="locationId" required>
+                        <option value="">Loading locations...</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="videoTitle">Video Title *</label>
+                    <input type="text" id="videoTitle" name="videoTitle" required>
+                </div>
+                <div class="form-group">
+                    <label for="videoFile">Video File *</label>
+                    <input type="file" id="videoFile" name="file" accept="video/*" required>
+                </div>
+                 <div class="form-group">
+                    <label for="duration">Duration (seconds)</label>
+                    <input type="number" id="duration" name="duration" min="1" value="15" required>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeUploadModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Upload</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/videos.js"></script>
+    <script src="js/sidebar-switcher.js"></script>
+</body>
+</html>

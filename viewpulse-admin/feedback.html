@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback - ViewPulse</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>🎬 ViewPulse</h2>
+                <p class="role-badge" id="adminRoleBadge">Loading...</p>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item" id="nav-dashboard">
+                    <span class="icon">📊</span> Dashboard
+                </a>
+                <a href="feedback.html" class="nav-item active" id="nav-feedback">
+                    <span class="icon">💬</span> Feedback
+                </a>
+                <a href="videos.html" class="nav-item" id="nav-videos">
+                    <span class="icon">🎬</span> Videos
+                </a>
+                <a href="devices.html" class="nav-item" id="nav-devices">
+                    <span class="icon">📱</span> Devices
+                </a>
+                <a href="#" onclick="logout()" class="nav-item logout">
+                    <span class="icon">🚪</span> Logout
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <small>Logged in as:</small>
+                    <p class="username" id="adminUsername">...</p>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="page-header">
+                <h1>All Feedback</h1>
+            </header>
+
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Phone</th>
+                            <th>Feedback Text</th>
+                            <th>Emotion</th>
+                            <th>Confidence</th>
+                        </tr>
+                    </thead>
+                    <tbody id="feedbackBody">
+                        <tr><td colspan="5" class="loading">Loading feedback...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/feedback.js"></script>
+    <script src="js/sidebar-switcher.js"></script>
+</body>
+</html>

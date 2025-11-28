@@ -1,0 +1,24 @@
+﻿# Maven / Java
+viewpulse-backend/target/
+viewpulse-backend/.idea/
+viewpulse-backend/.classpath
+viewpulse-backend/.project
+viewpulse-backend/.settings/
+
+# Python cache & venv
+viewpulse-ai/__pycache__/
+viewpulse-ai/.venv/
+
+# Uploads and runtime
+viewpulse-backend/uploads/
+viewpulse-backend/uploads/videos/
+
+# Docker artifacts
+*.log
+*.env
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

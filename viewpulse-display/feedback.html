@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback - ViewPulse</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .feedback-box {
+            background: white;
+            padding: 40px 35px;
+            border-radius: 20px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 100%;
+        }
+        .feedback-box h1 {
+            margin: 0 0 10px 0;
+            font-size: 32px;
+            color: #333;
+            text-align: center;
+        }
+        .feedback-box p {
+            color: #666;
+            margin: 0 0 30px 0;
+            text-align: center;
+            font-size: 16px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            box-sizing: border-box;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        .form-group small {
+            color: #999;
+            font-size: 12px;
+            display: block;
+            margin-top: 5px;
+        }
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .btn-submit:hover {
+            transform: translateY(-2px);
+        }
+        .btn-back {
+            width: 100%;
+            padding: 12px;
+            background: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: transform 0.2s;
+        }
+        .btn-back:hover {
+            transform: translateY(-2px);
+        }
+        #feedbackMessage {
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: 8px;
+            display: none;
+            text-align: center;
+            font-size: 14px;
+        }
+        #feedbackMessage.error {
+            background: #f8d7da;
+            color: #721c24;
+            display: block;
+        }
+        #feedbackMessage.success {
+            background: #d4edda;
+            color: #155724;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="feedback-box">
+        <h1>💬 Your Feedback</h1>
+        <p>We'd love to hear from you!</p>
+        
+        <form id="feedbackForm">
+            <div class="form-group">
+                <label>Phone Number</label>
+                <input type="tel" id="customerPhone" placeholder="Optional - Enter your phone" maxlength="15">
+                <small>Optional - Leave blank if you prefer</small>
+            </div>
+            
+            <div class="form-group">
+                <label>Your Feedback</label>
+                <textarea id="feedbackText" placeholder="Tell us about your experience..." required></textarea>
+            </div>
+            
+            <button type="submit" class="btn-submit">Submit Feedback</button>
+            <button type="button" class="btn-back" onclick="goBackToAds()">Back to Display</button>
+        </form>
+        
+        <div id="feedbackMessage"></div>
+    </div>
+    
+    <script src="js/api.js"></script>
+    <script src="js/feedback.js"></script>
+</body>
+</html>

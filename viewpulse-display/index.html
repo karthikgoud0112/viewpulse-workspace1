@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ViewPulse Display</title>
+    <script>
+        // Check if device is logged in
+        if (localStorage.getItem('deviceLoggedIn') === 'true') {
+            window.location.href = 'ads.html';
+        } else {
+            window.location.href = 'login.html';
+        }
+    </script>
+</head>
+<body>
+    <p style="text-align:center; margin-top:50px;">Loading ViewPulse...</p>
+</body>
+</html>

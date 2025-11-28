@@ -1,0 +1,79 @@
+/* Ads page specific styles */
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: #000;
+}
+
+#videoContainer {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+#videoPlayer {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background: #000;
+}
+
+/* Hide video controls for kiosk mode */
+#videoPlayer::-webkit-media-controls {
+    display: none !important;
+}
+
+#videoPlayer::-webkit-media-controls-enclosure {
+    display: none !important;
+}
+
+/* Feedback button animation */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+    }
+    50% {
+        box-shadow: 0 4px 30px rgba(102, 126, 234, 0.6);
+    }
+    100% {
+        box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+    }
+}
+
+#feedbackBtn {
+    animation: pulse 2s infinite;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #feedbackBtn {
+        bottom: 20px;
+        right: 20px;
+        padding: 14px 20px;
+        font-size: 18px;
+    }
+}
+
+/* Fullscreen support */
+#videoPlayer:-webkit-full-screen {
+    width: 100%;
+    height: 100%;
+}
+
+#videoPlayer:-moz-full-screen {
+    width: 100%;
+    height: 100%;
+}
+
+#videoPlayer:-ms-fullscreen {
+    width: 100%;
+    height: 100%;
+}
+
+#videoPlayer:fullscreen {
+    width: 100%;
+    height: 100%;
+}
+\vnviiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Admin - ViewPulse</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>🎬 ViewPulse</h2>
+                <p class="role-badge system_admin">SYSTEM ADMIN</p>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="system-admin-dashboard.html" class="nav-item active">
+                    <span class="icon">📊</span> Dashboard
+                </a>
+                <a href="owners.html" class="nav-item">
+                    <span class="icon">🏢</span> Owners
+                </a>
+                <a href="#" onclick="logout()" class="nav-item logout">
+                    <span class="icon">🚪</span> Logout
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <small>Logged in as:</small>
+                    <p class="username" id="adminUsername">...</p>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="page-header">
+                <h1>Dashboard</h1>
+                <button class="btn btn-primary" onclick="goToOwners()">
+                    ➕ Create Owner
+                </button>
+            </header>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">🏢</div>
+                    <div class="stat-info">
+                        <p class="stat-label">My Owners</p>
+                        <p class="stat-value" id="totalOwners">0</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📱</div>
+                    <div class="stat-info">
+                        <p class="stat-label">Total Devices</p>
+                        <p class="stat-value" id="totalDevices">0</p>
+                    </div>
+                </div>
+                </div>
+
+            <div class="section-header">
+                <h2>My Owners</h2>
+            </div>
+
+            <div class="cards-grid" id="ownersGrid">
+                <div class="loading">Loading owners...</div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/system-admin.js"></script>
+</body>
+</html>

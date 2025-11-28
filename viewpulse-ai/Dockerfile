@@ -1,0 +1,13 @@
+FROM python:3.10-slim
+WORKDIR /usr/src/app
+
+# Copy requirements and install. Use PyTorch CPU wheel index so pip fetches CPU builds (smaller)
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cpu
+
+# Copy app and model (if model is large consider mounting or downloading at runtime)
+COPY app.py .
+COPY my_model ./my_model
+
+EXPOSE 5000
+CMD ["python", "app.py"]

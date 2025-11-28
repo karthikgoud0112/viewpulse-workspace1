@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - ViewPulse</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>🎬 ViewPulse</h2>
+                <p class="role-badge" id="adminRoleBadge">Loading...</p>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item active" id="nav-dashboard">
+                    <span class="icon">📊</span> Dashboard
+                </a>
+                <a href="feedback.html" class="nav-item" id="nav-feedback">
+                    <span class="icon">💬</span> Feedback
+                </a>
+                <a href="videos.html" class="nav-item" id="nav-videos">
+                    <span class="icon">🎬</span> Videos
+                </a>
+                <a href="devices.html" class="nav-item" id="nav-devices">
+                    <span class="icon">📱</span> Devices
+                </a>
+                <a href="#" onclick="logout()" class="nav-item logout">
+                    <span class="icon">🚪</span> Logout
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <small>Logged in as:</small>
+                    <p class="username" id="adminUsername">...</p>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="page-header">
+                <h1>Dashboard</h1>
+            </header>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">💬</div>
+                    <div class="stat-info">
+                        <p class="stat-label">Total Feedback</p>
+                        <p class="stat-value" id="statTotal">-</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: #d1fae5; color: #065f46;">😊</div>
+                    <div class="stat-info">
+                        <p class="stat-label">Positive</p>
+                        <p class="stat-value" id="statPositive">-</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: #fef3c7; color: #92400e;">😐</div>
+                    <div class="stat-info">
+                        <p class="stat-label">Neutral</p>
+                        <p class="stat-value" id="statNeutral">-</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: #fee2e2; color: #991b1b;">😡</div>
+                    <div class="stat-info">
+                        <p class="stat-label">Negative</p>
+                        <p class="stat-value" id="statNegative">-</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-header">
+                <h2>Recent Feedbacks</h2>
+            </div>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Feedback</th>
+                            <th>Emotion</th>
+                            <th>Confidence</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dashboardFeedbackBody">
+                        <tr><td colspan="4" class="loading">Loading...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

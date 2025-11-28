@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Devices - ViewPulse</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>🎬 ViewPulse</h2>
+                <p class="role-badge" id="adminRoleBadge">Loading...</p>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active">
+                    <span class="icon">📱</span> Devices
+                </a>
+                <a href="#" onclick="logout()" class="nav-item logout">
+                    <span class="icon">🚪</span> Logout
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <small>Logged in as:</small>
+                    <p class="username" id="adminUsername">...</p>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="page-header">
+                <div>
+                    <div class="breadcrumb" id="pageBreadcrumb" style="font-size:14px; color:#666; margin-bottom:5px;"></div>
+                    <h1>Devices</h1>
+                </div>
+                <button class="btn btn-primary" id="addDeviceBtn" onclick="showAddDeviceModal()">
+                    ➕ Add Device
+                </button>
+            </header>
+
+            <div class="cards-grid" id="devicesGrid">
+                <div class="loading">Loading devices...</div>
+            </div>
+        </main>
+    </div>
+
+    <div id="addDeviceModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add Device</h2>
+                <span class="close" onclick="closeAddDeviceModal()">&times;</span>
+            </div>
+            <form id="addDeviceForm">
+                <p id="modalLocationInfo" style="padding:10px; background:#e0f7fa; color:#006064; border-radius:6px; margin-bottom:15px; font-size:14px; display:none;"></p>
+                
+                <div class="form-group">
+                    <label for="deviceCode">Device Code</label>
+                    <input type="text" id="deviceCode" name="deviceCode" required>
+                </div>
+                <div class="form-group">
+                    <label for="devicePassword">Device Password</label>
+                    <input type="text" id="devicePassword" name="devicePassword" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeAddDeviceModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add Device</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/devices.js"></script>
+    <script>
+        // Breadcrumb Override for Super Admin Drill-Down
+        const role = localStorage.getItem('adminRole');
+        if (role === 'super_admin') {
+            const owner = JSON.parse(localStorage.getItem('selectedOwner'));
+            if(owner) document.getElementById('pageBreadcrumb').textContent = `... > Owner: ${owner.username} > Devices`;
+        }
+    </script>
+</body>
+</html>

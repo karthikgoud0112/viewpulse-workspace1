@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Admin - ViewPulse</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>🎬 ViewPulse</h2>
+                <p class="role-badge super_admin">SUPER ADMIN</p>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="super-admin-dashboard.html" class="nav-item active">
+                    <span class="icon">👥</span> System Admins
+                </a>
+                <a href="#" onclick="logout()" class="nav-item logout">
+                    <span class="icon">🚪</span> Logout
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <small>Logged in as:</small>
+                    <p class="username" id="adminUsername">...</p>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="page-header">
+                <h1>System Admins</h1>
+                <button class="btn btn-primary" onclick="showCreateModal()">
+                    ➕ Create System Admin
+                </button>
+            </header>
+
+            <div class="cards-grid" id="systemAdminsGrid">
+                <div class="loading">Loading system admins...</div>
+            </div>
+        </main>
+    </div>
+
+    <div id="createModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header"><h2>Create System Admin</h2><span class="close" onclick="closeCreateModal()">&times;</span></div>
+            <form id="createSystemAdminForm"><div class="form-group"><label>Username</label><input type="text" name="username" required></div><div class="form-group"><label>Password</label><input type="password" name="password" required></div><div class="modal-footer"><button type="button" class="btn btn-secondary" onclick="closeCreateModal()">Cancel</button><button type="submit" class="btn btn-primary">Create</button></div></form>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/super-admin.js"></script>
+</body>
+</html>

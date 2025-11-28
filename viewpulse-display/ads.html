@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ViewPulse - Display</title>
+    <link rel="stylesheet" href="css/style-ads.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #000;
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+        }
+        #videoContainer {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            background: #000;
+        }
+        #videoPlayer {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        #feedbackBtn {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            padding: 18px 28px;
+            font-size: 24px;
+            background: rgba(102, 126, 234, 0.95);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        #feedbackBtn:hover {
+            background: rgba(102, 126, 234, 1);
+            transform: scale(1.08);
+        }
+        #hiddenLogoutBtn {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            width: 50px;
+            height: 50px;
+            background: transparent;
+            border: none;
+            opacity: 0;
+            cursor: pointer;
+            z-index: 200;
+        }
+        #logoutModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 300;
+            justify-content: center;
+            align-items: center;
+        }
+        .logout-box {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
+        }
+        .logout-box h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .logout-box button {
+            padding: 12px 30px;
+            margin: 10px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .logout-box .btn-logout {
+            background: #dc3545;
+            color: white;
+        }
+        .logout-box .btn-cancel {
+            background: #6c757d;
+            color: white;
+        }
+        .logout-box button:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div id="videoContainer">
+        <video id="videoPlayer" autoplay muted loop playsinline></video>
+    </div>
+    
+    <button id="feedbackBtn" onclick="goToFeedback()">💬 Feedback</button>
+    <button id="hiddenLogoutBtn" onclick="showLogoutModal()"></button>
+    
+    <div id="logoutModal">
+        <div class="logout-box">
+            <h2>Logout Device?</h2>
+            <p>Are you sure you want to logout this device?</p>
+            <button class="btn-logout" onclick="logoutDevice()">Yes, Logout</button>
+            <button class="btn-cancel" onclick="hideLogoutModal()">Cancel</button>
+        </div>
+    </div>
+    
+    <script src="js/api.js"></script>
+    <script src="js/ads.js"></script>
+</body>
+</html>
