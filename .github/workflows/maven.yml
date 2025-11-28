@@ -21,7 +21,8 @@ jobs:
         distribution: temurin
         java-version: 17
 
-    - name: Build with Maven
+    - name: Build with Maven (backend module)
+      working-directory: viewpulse-backend
       run: mvn -B -DskipTests clean package
 
     - name: Upload backend jar (artifact)
