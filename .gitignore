@@ -46,3 +46,7 @@ viewpulse-backend/uploads/videos/
 # OS
 .DS_Store
 Thumbs.db
+[ai_service]
+exporting
+naming
+writing
