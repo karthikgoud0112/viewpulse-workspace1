@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:8080/api';
+const API_BASE_URL = 'http://13.232.75.118:8080/api';
 
 // Get device info from localStorage
 function getDeviceId() {

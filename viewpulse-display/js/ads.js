@@ -54,7 +54,7 @@ function playVideo(index) {
     
     // --- FIX STARTS HERE ---
     // define the Backend URL manually since API_BASE_URL includes '/api'
-    const BACKEND_URL = 'http://localhost:8080'; 
+    const BACKEND_URL = 'http://13.232.75.118:8080'; 
     
     // Construct the full path: Backend + Folder + Filename
     videoPlayer.src = `${BACKEND_URL}/uploads/videos/${video.videoPath}`;

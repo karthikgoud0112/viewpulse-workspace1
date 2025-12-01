@@ -1,5 +1,8 @@
 package com.viewpulse.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
 
 import com.viewpulse.model.AdminUser;
 import com.viewpulse.model.Device;
@@ -17,7 +20,7 @@ import java.util.stream.Collectors;
 @Service
 public class HierarchyService {
 
-    .springframework.beans.factory.annotation.Autowired
+    
     private PasswordEncoder passwordEncoder;
 
     

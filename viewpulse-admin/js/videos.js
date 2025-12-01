@@ -81,7 +81,7 @@ function displayVideos(videos) {
                 </div>
             </div>
             <video controls width="100%" style="margin-top:10px; border-radius:8px; background:black;">
-                <source src="http://localhost:8080/uploads/videos/${video.videoPath}" type="video/mp4">
+                <source src="http://13.232.75.118:8080/uploads/videos/${video.videoPath}" type="video/mp4">
                 Video playback not supported
             </video>
             <div class="card-actions" style="margin-top:10px; text-align:right;">

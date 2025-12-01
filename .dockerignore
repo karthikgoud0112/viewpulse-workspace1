@@ -1,0 +1,5 @@
+viewpulse-ai/my_model
+target
+*.jar
+.git
+.gitignore

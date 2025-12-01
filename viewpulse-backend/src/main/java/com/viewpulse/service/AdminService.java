@@ -3,10 +3,8 @@ package com.viewpulse.service;
 import com.viewpulse.model.AdminUser;
 import com.viewpulse.repository.AdminUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import java.util.Optional;
+import org.springframework.stereotype.Service;
 
 @Service
 public class AdminService {
@@ -17,17 +15,13 @@ public class AdminService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    // Create admin and store bcrypt hash
+    // create and save admin with bcrypt hashed password
     public AdminUser createAdmin(String username, String rawPassword, String role, Integer locationId) {
         AdminUser u = new AdminUser();
         u.setUsername(username);
-        u.setPassword(passwordEncoder.encode(rawPassword));
+        u.setPassword(passwordEncoder.encode(rawPassword)); // store bcrypt hash
         u.setRole(role);
         u.setLocationId(locationId);
         return repo.save(u);
-    }
-
-    public Optional<AdminUser> findByUsername(String username) {
-        return repo.findByUsername(username);
     }
 }
